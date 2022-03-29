@@ -2,7 +2,7 @@
 
 ## Implementarea unui Catalog virtual.
 
-### Tema aleasa se ocupa cu implementarea unui sistem de tip catalog virtual avand 2 tipuri de utilizatori ( student si profesor), si in care se retin liste de studenti asociate unor liste de profesori ce ii predau studentului diferite materii. Fiecare utilizator are date de contact si adresa retinute. Se retin informatii si despre materie, sala si notele obtinute de un anumit student.
+### Tema aleasa se ocupa cu implementarea unui sistem de tip catalog virtual avand 2 tipuri de utilizatori ( student si profesor), si in care se retin liste de studenti asociate unor liste de profesori ce ii predau studentului diferite materii. Fiecare utilizator are date de contact si adresa retinute. Se retin si informatii despre materie, sala si notele obtinute de un anumit student.
 
 #### Tipuri de obiecte (8):
 - Utilizator
