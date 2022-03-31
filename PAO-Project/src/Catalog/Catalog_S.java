@@ -1,6 +1,7 @@
 package Catalog;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Catalog_S
@@ -20,6 +21,7 @@ public class Catalog_S
     public List<Catalog> get_File() {
         List<Catalog> cat_c = new ArrayList<>();
         cat_c.addAll(this.cat);
+        Collections.sort(cat_c);
         return cat_c;
     }
 
@@ -44,6 +46,7 @@ public class Catalog_S
             }
         }
     }
+
 
     public void adauga_Fila(Catalog cat_c){
         this.cat.add(cat_c);

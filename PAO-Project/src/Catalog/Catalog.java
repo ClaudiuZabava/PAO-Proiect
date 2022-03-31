@@ -5,7 +5,7 @@ import Utilizator.Profesor;
 
 import java.util.HashSet;
 
-public class Catalog
+public class Catalog implements Comparable<Catalog>
 {
     private int id;
     private Student student;
@@ -37,6 +37,19 @@ public class Catalog
     }
     public void set_Profesori(HashSet profesori) {
         this.profesori = profesori;
+    }
+
+    @Override
+    public int compareTo(Catalog u) {
+        if (get_Id() == 0 || u.get_Id() == 0) {
+            return 0;
+        }
+        if(get_Id() < u.get_Id())
+            return -1;
+        if(get_Id() > u.get_Id())
+            return 1;
+        else
+            return 0;
     }
 
 
