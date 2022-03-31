@@ -26,3 +26,6 @@
 - Pentru fiecare Profesor cunoastem materia predata
 - Pentru orice student vom stii nota obtinuta separat la fiecare materie.
 - Din fila de catalog putem gasi si informatii cu privire la sala fiecarei materii ale Studentului asociat.
+
+
+Filele de catalog sunt sortate dupa ID folosind Comparable.
