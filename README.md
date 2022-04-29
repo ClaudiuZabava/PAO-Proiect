@@ -29,3 +29,38 @@
 
 
 Filele de catalog sunt sortate dupa ID folosind Comparable.
+
+# PAO-Proiect - Etapa 2
+
+#### Serviciile singleton:
+Am folosit servicii singleton inca din prima etapa, sub forma:
+```
+    private static AppService instance;
+
+    private Scanner scanner = new Scanner(System.in);
+
+    private AppService(){}
+
+    public static AppService get_Instance(){
+        if(instance == null){
+            instance = new AppService();
+        }
+        return instance;
+    }
+```
+#### Fisiere CSV + Serviciu Read/Write:
+Serviciile de citire si scriere din fisiere CSV pe care le-am adaugat sunt: WriteService, ReadService.
+Fisierele CSV se afla in src/com/company/date.
+Fisierele CSV au un header generat automat de serviciul de scriere.
+Datele din fisier respecta headerul.
+
+#### Colectiile: 
+Collections -> List si HashSet  (am folosit List in clasele principale, in cadrul clasei catalog am folosit HashSet, dar si ArrayList in anumite Servicii).
+
+#### tratare Erori:
+Am tratat mare parte din exceptii ( si in etapa anterioara + exceptii ce pot aparea la citire sau scriere din fisier).
+
+#### Incarcare si persistare date :
+Daca fisierele CSV nu sunt goale, datele sunt incarcate automat la startul aplicatiei.
+Datele adaugate in CSV persista si sunt reincarcate de fiecare data cand aplicatia porneste.
+
