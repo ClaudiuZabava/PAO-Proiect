@@ -2,6 +2,7 @@ package com.company.utilizator;
 
 public class Adresa
 {
+    private int id;
     private String tara;
     private String judet;
     private String oras;
@@ -9,12 +10,16 @@ public class Adresa
 
     public Adresa() {}
 
-    public Adresa(String tara, String judet, String oras, String strada) {
+    public Adresa(int id, String tara, String judet, String oras, String strada) {
+        this.id = id;
         this.tara = tara;
         this.judet = judet;
         this.oras = oras;
         this.strada = strada;
     }
+
+    public int get_id(){return id;}
+    public void set_id(int id) {this.id = id;}
 
     public String get_tara() { return tara; }
     public void set_tara(String tara) {

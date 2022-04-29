@@ -8,6 +8,7 @@ import com.company.utilizator.Profesor;
 import com.company.utilizator.Student;
 import com.company.catalog.Catalog;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.*;
 
@@ -18,6 +19,9 @@ public class AppService
     private ProfesorService prof_service = ProfesorService.get_Instance();
     private StudentService student_service = StudentService.get_Instance();
     private CatalogService catalog_service = CatalogService.get_Instance();
+    private WriteService write_service = WriteService.get_Instance();
+    private ReadService read_service = ReadService.get_Instance();
+    private AuditService audit_service = AuditService.get_Instance();
 
     private static AppService instance;
 
@@ -35,6 +39,19 @@ public class AppService
     Adresa citeste_adresa(){
         Adresa adresa = new Adresa();
 
+        System.out.println("Id linie adresa:");
+        int id;
+        try {
+            id = scanner.nextInt();
+        }
+        catch(Exception e){
+            System.out.println("Te rog tasteaza un id valid");
+            scanner.nextLine();
+            id = scanner.nextInt();
+        }
+        adresa.set_id(id);
+        scanner.nextLine();
+
         System.out.println("Tara:");
         adresa.set_tara(scanner.nextLine());
 
@@ -47,11 +64,35 @@ public class AppService
         System.out.println("Strada:");
         adresa.set_strada(scanner.nextLine());
 
+        String path = "src/com/company/date/adrese.csv";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
+        write_service.writeCsvAdresa(absolutePath, adresa);
+
+        String path2 = "src/com/company/date/auditIn.csv";
+        File file2 = new File(path2);
+        String absolutePath2 = file2.getAbsolutePath();
+        audit_service.writeCsvAudit(absolutePath2, "Citire date Adresa");
+
         return adresa;
     }
 
     Contact citeste_contact(){
         Contact info = new Contact();
+
+        System.out.println("Id linie contact:");
+        int id;
+        try {
+            id = scanner.nextInt();
+        }
+        catch(Exception e){
+            System.out.println("Te rog tasteaza un id valid");
+            scanner.nextLine();
+            id = scanner.nextInt();
+        }
+        info.set_id(id);
+        scanner.nextLine();
 
         System.out.println("Email personal:");
         info.set_email1(scanner.nextLine());
@@ -71,6 +112,17 @@ public class AppService
         }
         info.set_tel(nrt);
         scanner.nextLine();
+
+        String path = "src/com/company/date/contacte.csv";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
+        write_service.writeCsvContact(absolutePath, info);
+
+        String path2 = "src/com/company/date/auditIn.csv";
+        File file2 = new File(path2);
+        String absolutePath2 = file2.getAbsolutePath();
+        audit_service.writeCsvAudit(absolutePath2, "Citire date Contact");
 
         return info;
     }
@@ -93,12 +145,36 @@ public class AppService
         sl.set_Etaj(et);
         scanner.nextLine();
 
+        String path = "src/com/company/date/sali.csv";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
+        write_service.writeCsvSala(absolutePath, sl);
+
+        String path2 = "src/com/company/date/auditIn.csv";
+        File file2 = new File(path2);
+        String absolutePath2 = file2.getAbsolutePath();
+        audit_service.writeCsvAudit(absolutePath2, "Citire date Sala");
+
         return sl;
 
     }
 
     Materie citeste_materie(){
         Materie info = new Materie();
+
+        System.out.println("Id materie:");
+        int id;
+        try {
+            id = scanner.nextInt();
+        }
+        catch(Exception e){
+            System.out.println("Te rog tasteaza un id valid");
+            scanner.nextLine();
+            id = scanner.nextInt();
+        }
+        info.set_id(id);
+        scanner.nextLine();
 
         System.out.println("Denumirea materiei:");
         info.set_Denumire(scanner.nextLine());
@@ -117,6 +193,17 @@ public class AppService
         scanner.nextLine();
 
         info.set_Sala(citeste_sala());
+
+        String path = "src/com/company/date/materii.csv";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
+        write_service.writeCsvMaterie(absolutePath, info);
+
+        String path2 = "src/com/company/date/auditIn.csv";
+        File file2 = new File(path2);
+        String absolutePath2 = file2.getAbsolutePath();
+        audit_service.writeCsvAudit(absolutePath2, "Citire date Materie");
 
         return info;
     }
@@ -153,6 +240,12 @@ public class AppService
         System.out.println("Introdu adresa:");
         Adresa adresa = citeste_adresa();
         prof.set_Adresa(adresa);
+
+        String path = "src/com/company/date/profesori.csv";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
+        write_service.writeCsvProfesor(absolutePath, prof);
 
 
         return prof;
@@ -201,6 +294,13 @@ public class AppService
         student.set_Adresa(adresa);
 
 
+        String path = "src/com/company/date/studenti.csv";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
+        write_service.writeCsvStudent(absolutePath, student);
+
+
         return student;
     }
 
@@ -224,6 +324,11 @@ public class AppService
                 {
                     student_service.get_Studenti().get(i).Date_Utilizator();
                 }
+
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Afisare Studenti");
             }
             else if (option == 1)
             {
@@ -243,6 +348,10 @@ public class AppService
                 }
                 else{
                     student_service.get_Student_id(id).Date_Utilizator();
+                    String path2 = "src/com/company/date/auditIn.csv";
+                    File file2 = new File(path2);
+                    String absolutePath2 = file2.getAbsolutePath();
+                    audit_service.writeCsvAudit(absolutePath2, "Afisare Student dupa ID");
                 }
 
             }
@@ -250,6 +359,11 @@ public class AppService
             {
                 Student student = citire_student();
                 student_service.student_Add(student);
+
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Citire date Student");
             }
             else if (option == 3)
             {
@@ -267,6 +381,11 @@ public class AppService
                 {
                     Student student = citire_student();
                     student_service.student_Update(id, student);
+
+                    String path2 = "src/com/company/date/auditIn.csv";
+                    File file2 = new File(path2);
+                    String absolutePath2 = file2.getAbsolutePath();
+                    audit_service.writeCsvAudit(absolutePath2, "Update date Student");
                 }
                 else
                 {
@@ -287,9 +406,19 @@ public class AppService
                     id = scanner.nextInt();
                 }
                 student_service.student_Remove_id(id);
+
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Sterge Student dupa ID");
             }
             else if (option == 5)
             {
+
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Inchidere meniu Student");
                 break;
             }
             else {
@@ -318,6 +447,11 @@ public class AppService
                 {
                     prof_service.get_Profesori().get(i).Date_Utilizator();
                 }
+
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Afisare Profesori");
             }
             else if (option == 1)
             {
@@ -338,6 +472,11 @@ public class AppService
                 else
                 {
                     prof_service.get_Profesor_id(id).Date_Utilizator();
+
+                    String path2 = "src/com/company/date/auditIn.csv";
+                    File file2 = new File(path2);
+                    String absolutePath2 = file2.getAbsolutePath();
+                    audit_service.writeCsvAudit(absolutePath2, "Afisare profesor dupa ID");
                 }
 
             }
@@ -345,6 +484,11 @@ public class AppService
             {
                 Profesor prof = citire_profesor();
                 prof_service.profesor_Add(prof);
+
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Citire Profesori");
             }
             else if (option == 3)
             {
@@ -362,6 +506,11 @@ public class AppService
                 {
                     Profesor prof = citire_profesor();
                     prof_service.profesor_Update(id, prof);
+
+                    String path2 = "src/com/company/date/auditIn.csv";
+                    File file2 = new File(path2);
+                    String absolutePath2 = file2.getAbsolutePath();
+                    audit_service.writeCsvAudit(absolutePath2, "Update date Profesor");
                 }
                 else
                 {
@@ -382,9 +531,18 @@ public class AppService
                     id = scanner.nextInt();
                 }
                 prof_service.profesor_Remove_id(id);
+
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Stergere Profesor dupa ID");
             }
             else if (option == 5)
             {
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Inchidere meniu Profesor");
                 break;
             }
             else {
@@ -435,6 +593,12 @@ public class AppService
 
         cat.set_Profesori(h);
 
+        String path = "src/com/company/date/fileCatalog.csv";
+        File file = new File(path);
+        String absolutePath = file.getAbsolutePath();
+
+        write_service.writeCsvCatalog(absolutePath, cat);
+
         return cat;
     }
 
@@ -464,6 +628,11 @@ public class AppService
                         });
                     }
                 }
+
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Afisare File Catalog");
             }
             else if (option == 1)
             {
@@ -493,6 +662,11 @@ public class AppService
                             ((Profesor) prof).Date_Utilizator();
                         });
                     }
+
+                    String path2 = "src/com/company/date/auditIn.csv";
+                    File file2 = new File(path2);
+                    String absolutePath2 = file2.getAbsolutePath();
+                    audit_service.writeCsvAudit(absolutePath2, "Afisare Fila Catalog dupa ID");
                 }
 
 
@@ -501,6 +675,11 @@ public class AppService
             {
                 Catalog cat = citire_catalog();
                 catalog_service.adauga_Fila(cat);
+
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Adaugare fila in Catalog");
             }
             else if (option == 3)
             {
@@ -519,6 +698,11 @@ public class AppService
                 {
                     Catalog cat = citire_catalog();
                     catalog_service.catalog_Update(id, cat);
+
+                    String path2 = "src/com/company/date/auditIn.csv";
+                    File file2 = new File(path2);
+                    String absolutePath2 = file2.getAbsolutePath();
+                    audit_service.writeCsvAudit(absolutePath2, "Update Fila Catalog");
                 }
                 else
                 {
@@ -539,6 +723,12 @@ public class AppService
                 }
                 scanner.nextLine();
                 catalog_service.sterge_Fila_id(id);
+
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Sterge Fila Catalog dupa ID");
+
             }
             else if (option == 5)
             {
@@ -575,6 +765,11 @@ public class AppService
                     });
 
                     System.out.println("Media studentului pe acest an = " + (mar.stream().reduce(0.00, Double::sum)/mar.size()));
+
+                    String path2 = "src/com/company/date/auditIn.csv";
+                    File file2 = new File(path2);
+                    String absolutePath2 = file2.getAbsolutePath();
+                    audit_service.writeCsvAudit(absolutePath2, "Calculeaza media notelor Studentului");
                 }
                 else
                 {
@@ -583,6 +778,10 @@ public class AppService
             }
             else if(option == 6)
             {
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Inchidere meniu Catalog");
                 break;
             }
             else {
@@ -641,11 +840,26 @@ public class AppService
         while(true){
             afis_meniu_utilizatori();
             int option = scanner.nextInt();
-            if (option == 0) {
+            if (option == 0)
+            {
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Afisare Meniu Profesor");
                 meniu_profesor();
-            } else if (option == 1) {
+            } else if (option == 1)
+            {
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Afisare Meniu Student");
                 meniu_student();
-            } else if (option == 2) {
+            } else if (option == 2)
+            {
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Inchidere meniu utilizatori");
                 break;
             }
             else {
@@ -654,7 +868,27 @@ public class AppService
         }
     }
 
-    public void meniu() throws ParseException {
+    public void meniu() throws ParseException
+    {
+        String path1 = "src/com/company/date/fileCatalog.csv";
+        File file1 = new File(path1);
+        String absolutePath1 = file1.getAbsolutePath();
+
+
+
+        if( read_service.readCsvCatalog(absolutePath1)!=0)
+        {
+            System.out.println("Au fost incarcate datele !!!");
+            String path2 = "src/com/company/date/auditIn.csv";
+            File file2 = new File(path2);
+            String absolutePath2 = file2.getAbsolutePath();
+            audit_service.writeCsvAudit(absolutePath2, "Incarcare date din CSV");
+        }
+        else
+        {
+            System.out.println("Datele nu au fost incarcate. Creaza niste date noi!");
+        }
+
         while(true){
             afis_meniu_general();
             int option;
@@ -667,18 +901,35 @@ public class AppService
             }
             if(option == 0)
             {
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Reafisare Meniu Principal");
                 continue;
+
             }
             else if(option == 1)
             {
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Afisare Meniu Catalog");
                 meniu_catalog();
             }
             else if(option == 2)
             {
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Afisare Meniu Utilizatori");
                 meniu_utilizator();
             }
             else if(option == 3)
             {
+                String path2 = "src/com/company/date/auditIn.csv";
+                File file2 = new File(path2);
+                String absolutePath2 = file2.getAbsolutePath();
+                audit_service.writeCsvAudit(absolutePath2, "Se inchide aplicatia");
                 break;
             }
             else {

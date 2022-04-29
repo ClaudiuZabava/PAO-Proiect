@@ -1,17 +1,22 @@
 package com.company.utilizator;
 
 public class Contact {
+    private int id;
     private String emailPersonal;
     private String emailInstitutional;
     private int telefon;
 
     public Contact(){}
-    public Contact(String e1, String e2, int tel)
+    public Contact(int id, String e1, String e2, int tel)
     {
+        this.id = id;
         this.emailPersonal = e1;
         this.emailInstitutional = e2;
         this.telefon = tel;
     }
+
+    public int get_id(){return id;}
+    public void set_id(int id) {this.id = id;}
 
     public String get_email1(){ return emailPersonal;}
     public void set_email1(String e1){ this.emailPersonal = e1;}
