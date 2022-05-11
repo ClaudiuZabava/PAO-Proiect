@@ -8,9 +8,13 @@ import com.company.utilizator.Profesor;
 import com.company.utilizator.Student;
 import com.company.catalog.Catalog;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.text.ParseException;
 import java.util.*;
+
+import static java.lang.Integer.parseInt;
 
 public class AppService
 {
@@ -39,18 +43,26 @@ public class AppService
     Adresa citeste_adresa(){
         Adresa adresa = new Adresa();
 
-        System.out.println("Id linie adresa:");
+
         int id;
-        try {
-            id = scanner.nextInt();
+        String[] content;
+        String path1 = "src/com/company/date/adrese.csv";
+        File file1 = new File(path1);
+        String fileName = file1.getAbsolutePath();
+
+        content = read_service.returnContent(fileName);
+        if(content == null || content[0] == "id")
+        {
+            id = 1;
         }
-        catch(Exception e){
-            System.out.println("Te rog tasteaza un id valid");
-            scanner.nextLine();
-            id = scanner.nextInt();
+        else
+        {
+
+            id = parseInt(content[0])+1;
         }
+
+        System.out.println("Id linie adresa: " + id);
         adresa.set_id(id);
-        scanner.nextLine();
 
         System.out.println("Tara:");
         adresa.set_tara(scanner.nextLine());
@@ -81,18 +93,24 @@ public class AppService
     Contact citeste_contact(){
         Contact info = new Contact();
 
-        System.out.println("Id linie contact:");
         int id;
-        try {
-            id = scanner.nextInt();
+        String[] content;
+        String path1 = "src/com/company/date/contacte.csv";
+        File file1 = new File(path1);
+        String fileName = file1.getAbsolutePath();
+
+        content = read_service.returnContent(fileName);
+        if(content == null || content[0] == "id")
+        {
+            id = 1;
         }
-        catch(Exception e){
-            System.out.println("Te rog tasteaza un id valid");
-            scanner.nextLine();
-            id = scanner.nextInt();
+        else
+        {
+            id = parseInt(content[0])+1;
         }
+        System.out.println("Id linie contact: " + id);
         info.set_id(id);
-        scanner.nextLine();
+
 
         System.out.println("Email personal:");
         info.set_email1(scanner.nextLine());
@@ -163,18 +181,23 @@ public class AppService
     Materie citeste_materie(){
         Materie info = new Materie();
 
-        System.out.println("Id materie:");
         int id;
-        try {
-            id = scanner.nextInt();
+        String[] content;
+        String path1 = "src/com/company/date/materii.csv";
+        File file1 = new File(path1);
+        String fileName = file1.getAbsolutePath();
+
+        content = read_service.returnContent(fileName);
+        if(content == null || content[0] == "id")
+        {
+            id = 1;
         }
-        catch(Exception e){
-            System.out.println("Te rog tasteaza un id valid");
-            scanner.nextLine();
-            id = scanner.nextInt();
+        else
+        {
+            id = parseInt(content[0])+1;
         }
+        System.out.println("Id materie noua: " + id);
         info.set_id(id);
-        scanner.nextLine();
 
         System.out.println("Denumirea materiei:");
         info.set_Denumire(scanner.nextLine());
@@ -210,18 +233,23 @@ public class AppService
 
     Profesor citire_profesor(){
         Profesor prof = new Profesor();
-        System.out.println("Introdu Id profesor nou:");
         int id;
-        try {
-            id = scanner.nextInt();
+        String[] content;
+        String path1 = "src/com/company/date/profesori.csv";
+        File file1 = new File(path1);
+        String fileName = file1.getAbsolutePath();
+
+        content = read_service.returnContent(fileName);
+        if(content == null || content[0] == "id")
+        {
+            id = 1;
         }
-        catch(Exception e){
-            System.out.println("Te rog tasteaza un id de profesor valid");
-            scanner.nextLine();
-            id = scanner.nextInt();
+        else
+        {
+            id = parseInt(content[0])+1;
         }
+        System.out.println("Id profesor nou: " + id);
         prof.set_Id(id);
-        scanner.nextLine();
 
         System.out.println("Introdu numele Profesorului:");
         prof.set_Nume(scanner.nextLine());
@@ -247,24 +275,30 @@ public class AppService
 
         write_service.writeCsvProfesor(absolutePath, prof);
 
-
+        prof_service.profesor_Add(prof);
         return prof;
     }
 
     Student citire_student(){
         Student student = new Student();
-        System.out.println("Introdu Id student nou:");
         int id;
-        try {
-            id = scanner.nextInt();
+        String[] content;
+        String path1 = "src/com/company/date/studenti.csv";
+        File file1 = new File(path1);
+        String fileName = file1.getAbsolutePath();
+
+        content = read_service.returnContent(fileName);
+        if(content == null || content[0] == "id")
+        {
+            id = 1;
         }
-        catch(Exception e){
-            System.out.println("Te rog tasteaza un id de student valid");
-            scanner.nextLine();
-            id = scanner.nextInt();
+        else
+        {
+
+            id = parseInt(content[0])+1;
         }
+        System.out.println("Id student nou: " + id);
         student.set_Id(id);
-        scanner.nextLine();
 
         System.out.println("Introdu Numele Studentului:");
         student.set_Nume(scanner.nextLine());
@@ -300,7 +334,7 @@ public class AppService
 
         write_service.writeCsvStudent(absolutePath, student);
 
-
+        student_service.student_Add(student);
         return student;
     }
 
@@ -312,11 +346,12 @@ public class AppService
             try
             {
                 option = scanner.nextInt();
+                scanner.nextLine();
             }
             catch(Exception e){
                 System.out.println("Te rog tasteaza un id de optiune valid");
-                scanner.nextLine();
                 option = scanner.nextInt();
+                scanner.nextLine();
             }
             if (option == 0)
             {
@@ -336,11 +371,12 @@ public class AppService
                 System.out.println("ID student:");
                 try {
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 catch(Exception e){
                     System.out.println("Te rog tasteaza un id de student valid");
-                    scanner.nextLine();
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 if(student_service.get_Student_id(id) == null)
                 {
@@ -371,11 +407,12 @@ public class AppService
                 System.out.println("ID student:");
                 try {
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 catch(Exception e){
                     System.out.println("Te rog tasteaza un id de student valid");
-                    scanner.nextLine();
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 if(student_service.check_existence(id) == 1)
                 {
@@ -399,11 +436,12 @@ public class AppService
                 System.out.println("ID student:");
                 try {
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 catch(Exception e){
                     System.out.println("Te rog tasteaza un id de student valid");
-                    scanner.nextLine();
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 student_service.student_Remove_id(id);
 
@@ -435,11 +473,13 @@ public class AppService
             int option;
             try {
                 option = scanner.nextInt();
+                scanner.nextLine();
+
             }
             catch(Exception e){
                 System.out.println("Te rog tasteaza un id de optiune valid");
-                scanner.nextLine();
                 option = scanner.nextInt();
+                scanner.nextLine();
             }
             if (option == 0)
             {
@@ -459,11 +499,12 @@ public class AppService
                 System.out.println("ID profesor:");
                 try {
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 catch(Exception e){
                     System.out.println("Te rog tasteaza un id de profesor valid");
-                    scanner.nextLine();
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 if(prof_service.get_Profesor_id(id) == null)
                 {
@@ -496,11 +537,12 @@ public class AppService
                 System.out.println("ID profesor:");
                 try {
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 catch(Exception e){
                     System.out.println("Te rog tasteaza un id de profesor valid");
-                    scanner.nextLine();
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 if(prof_service.check_existence(id) == 1)
                 {
@@ -524,11 +566,12 @@ public class AppService
                 System.out.println("ID profesor:");
                 try {
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 catch(Exception e){
                     System.out.println("Te rog tasteaza un id de profesor valid");
-                    scanner.nextLine();
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 prof_service.profesor_Remove_id(id);
 
@@ -551,19 +594,26 @@ public class AppService
         }
     }
     Catalog citire_catalog() throws ParseException {
-        System.out.println("Id fila catalog:");
         Catalog cat = new Catalog();
         int id;
-        try {
-            id = scanner.nextInt();
+        String[] content;
+        String path1 = "src/com/company/date/fileCatalog.csv";
+        File file1 = new File(path1);
+        String fileName = file1.getAbsolutePath();
+
+        content = read_service.returnContent(fileName);
+        if(content == null || content[0] == "id")
+        {
+            System.out.println("Id fila catalog: 1");
+            id = 1;
         }
-        catch(Exception e){
-            System.out.println("Te rog tasteaza un id valid");
-            scanner.nextLine();
-            id = scanner.nextInt();
+        else
+        {
+
+            id = parseInt(content[0])+1;
+            System.out.println("Id fila catalog: " + id);
         }
         cat.set_Id(id);
-        scanner.nextLine();
 
         System.out.println("Datele studentului:");
         Student st1 = citire_student();
@@ -609,11 +659,12 @@ public class AppService
             int option;
             try {
                 option = scanner.nextInt();
+                scanner.nextLine();
             }
             catch(Exception e){
                 System.out.println("Te rog tasteaza un id de optiune valid");
-                scanner.nextLine();
                 option = scanner.nextInt();
+                scanner.nextLine();
             }
             if (option == 0) {
                 for (int i = 0; i < catalog_service.get_File().size(); ++i)
@@ -640,13 +691,13 @@ public class AppService
                 System.out.println("ID fila:");
                 try {
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 catch(Exception e){
                     System.out.println("Te rog tasteaza un id valid");
-                    scanner.nextLine();
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
-                scanner.nextLine();
                 if(catalog_service.get_Fila_id(id) == null)
                 {
                     System.out.println("Oops! Fila cu ID-ul specificat nu exista");
@@ -687,13 +738,13 @@ public class AppService
                 System.out.println("ID fila:");
                 try {
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 catch(Exception e){
                     System.out.println("Te rog tasteaza un id valid");
-                    scanner.nextLine();
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
-                scanner.nextLine();
                 if(catalog_service.check_existence(id) == 1)
                 {
                     Catalog cat = citire_catalog();
@@ -715,13 +766,13 @@ public class AppService
                 System.out.println("ID fila:");
                 try {
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 catch(Exception e){
                     System.out.println("Te rog tasteaza un id valid");
-                    scanner.nextLine();
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
-                scanner.nextLine();
                 catalog_service.sterge_Fila_id(id);
 
                 String path2 = "src/com/company/date/auditIn.csv";
@@ -736,14 +787,14 @@ public class AppService
                 int id;
                 try {
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 catch(Exception e){
                     System.out.println("Te rog tasteaza un id de student valid");
-                    scanner.nextLine();
                     id = scanner.nextInt();
+                    scanner.nextLine();
                 }
                 int k=-1;
-                scanner.nextLine();
 
                 for (int i = 0; i < catalog_service.get_File().size(); ++i)
                 {
@@ -839,7 +890,16 @@ public class AppService
     public void meniu_utilizator(){
         while(true){
             afis_meniu_utilizatori();
-            int option = scanner.nextInt();
+            int option;
+            try {
+                option = scanner.nextInt();
+                scanner.nextLine();
+            }
+            catch(Exception e){
+                System.out.println("Te rog tasteaza un id de optiune valid");
+                option = scanner.nextInt();
+                scanner.nextLine();
+            }
             if (option == 0)
             {
                 String path2 = "src/com/company/date/auditIn.csv";
@@ -894,10 +954,12 @@ public class AppService
             int option;
             try {
                 option = scanner.nextInt();
+                scanner.nextLine();
             }
             catch(Exception e){
                 System.out.println("Te rog tasteaza un id de optiune valid");
                 option = scanner.nextInt();
+                scanner.nextLine();
             }
             if(option == 0)
             {

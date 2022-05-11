@@ -46,6 +46,47 @@ public class ReadService
         return instance;
     }
 
+    public static String[] returnContent(String fileName)
+    {
+        BufferedReader fileReader = null;
+
+        try {
+
+            //Create a new list of student to be filled by CSV file data
+
+            String line = "";
+            String[] content = new String[0];
+            int check=0;
+
+            //Create the file reader
+            fileReader = new BufferedReader(new FileReader(fileName));
+
+            while ((line = fileReader.readLine()) != null)
+            {
+                content = line.split(COMMA_DELIMITER);
+                check=1;
+            }
+            if(check == 0)
+                return null;
+            else
+                return content;
+        }
+        catch (Exception e) {
+            System.out.println("Error in Content return function!!!");
+            e.printStackTrace();
+        } finally {
+            try {
+                fileReader.close();
+            } catch (IOException e) {
+                System.out.println("Error while closing fileReader !!!");
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+
+    }
+
     public static List<Adresa> readCsvAdresa(String fileName)
     {
 
@@ -557,7 +598,7 @@ public class ReadService
 
         if( readCsvStudent(absolutePath2)==0 || readCsvProfesor(absolutePath3)==0)
         {
-            System.out.println("Students and Profs error");
+            //System.out.println("Students and Profs error");
             return 0;
         }
 
@@ -574,12 +615,12 @@ public class ReadService
 
             if(!Objects.equals(fileReader.readLine(), FILE_HEADER7.toString()))
             {
-                System.out.println("header error");
+                //System.out.println("header error");
                 return 0;
             }
             if((student_service.get_Studenti().size() < 1) || (prof_service.get_Profesori().size() < 1))
             {
-                System.out.println("students and profs err 2");
+                //System.out.println("students and profs err 2");
                 return 0;
             }
 
@@ -607,7 +648,7 @@ public class ReadService
                     }
                     if(check1 == 0)
                     {
-                        System.out.println(" check students error");
+                        //System.out.println(" check students error");
                         return 0;
                     }
 
@@ -626,13 +667,13 @@ public class ReadService
                         }
                         if(check2 == 0)
                         {
-                            System.out.println(" prof check error");
+                            //System.out.println(" prof check error");
                             return 0;
                         }
                     }
                     if(pp.size() < 1 || k1 == -1)
                     {
-                        System.out.println(" hash set and k err");
+                        //System.out.println(" hash set and k err");
                         return 0;
                     }
 
