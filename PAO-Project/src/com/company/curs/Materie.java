@@ -2,18 +2,23 @@ package com.company.curs;
 
 public class Materie
 {
+    private int id;
     private String denumire;
     private double notaS;
     private Sala sala;
 
     public Materie(){}
 
-    public Materie(String denumire, double notaS, Sala sala)
+    public Materie(int id, String denumire, double notaS, Sala sala)
     {
+        this.id = id;
         this.denumire= denumire;
         this.notaS = notaS;
         this.sala = sala;
     }
+
+    public int get_id(){return id;}
+    public void set_id(int id) {this.id = id;}
 
     public String get_Denumire(){return denumire;}
     public void set_Denumire(String d)

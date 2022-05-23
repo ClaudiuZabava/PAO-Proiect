@@ -19,13 +19,13 @@ public class Profesor extends Utilizator
     @Override
     public void Date_Utilizator()
     {
-        System.out.println("com.company.curs: " + materie.get_Denumire());
-        System.out.println("Cod Sala: " + materie.get_Sala().get_Cod());
-        System.out.println("Etaj Sala: " + materie.get_Sala().get_Etaj());
-        System.out.println("Nota obtinuta: " + materie.get_Nota_student());
-        System.out.println("Info com.company.curs: " + get_Materie());
         System.out.println("Nume Profesor: " + get_Nume());
         System.out.println("Pozitia profesorului: " + get_Rank());
+        System.out.println("Curs predat de profesor: " + materie.get_Denumire());
+        System.out.println("Cod Sala curs: " + materie.get_Sala().get_Cod());
+        System.out.println("Etaj Sala curs: " + materie.get_Sala().get_Etaj());
+        System.out.println("Nota data de acest profesor studentului: " + materie.get_Nota_student());
+        System.out.println("Info materie: " + get_Materie());
         System.out.println("Contact Info: " + get_Contact());
         System.out.println("Adresa: " + get_Adresa());
     }

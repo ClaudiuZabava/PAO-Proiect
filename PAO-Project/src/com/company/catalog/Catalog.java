@@ -14,6 +14,7 @@ public class Catalog implements Comparable<Catalog>
     public Catalog(){}
 
     public Catalog(int id, Student student, HashSet<Profesor> profesori) {
+        this.id=id;
         this.student = student;
         this.profesori = profesori;
     }
