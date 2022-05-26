@@ -64,3 +64,18 @@ Am tratat mare parte din exceptii ( si in etapa anterioara + exceptii ce pot apa
 Daca fisierele CSV nu sunt goale, datele sunt incarcate automat la startul aplicatiei.
 Datele adaugate in CSV persista si sunt reincarcate de fiecare data cand aplicatia porneste.
 
+
+
+
+# PAO-Proiect - Etapa 3:
+
+### Implementat Conexiune la DB.
+### Functie care creaza automat baza de date in MySQL;
+### Instalat Maven si Dependintele MySQL in MAVEN
+### Se genereaza tabelele necesare bazei de date la pornirea aplicatiei ( pt prima oara).
+### Acum Datele sunt salvate si in CSV dar se stocheaza dupa cheie si in baza de date
+De mentionat, acum cand avem in tabela Student campul adresa, acolo se va retine un id_adresa de la oa adresa existenta in baza de date.
+### Acum Datele sunt incarcate in aplicatie la start exclusiv din Baza de Date.
+### Toate metodele de management a bazei de date si ale tabelelor corespunzatoare fiecarei clase se afla in DatabaseManager class.
+### Avem metode de insertie ( INSERT) in baza de date, de selectie ( SELECT) si de delete (DELETE & ON DELETE CASCADE)
+
